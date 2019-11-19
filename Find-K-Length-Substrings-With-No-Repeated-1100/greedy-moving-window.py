@@ -48,7 +48,7 @@ class Solution:
                 indexDict = [-1] * 26
             
             print('middle          ', S[leftPtr:rightPtr + 1], 
-                "          S[rightPtr]:", S[rightPtr])
+                "           S[rightPtr]:", S[rightPtr])
             # We might have a new rightPtr at now, so we have to mapping again
             key = ord(S[rightPtr]) - 97 
             indexDict[key] = rightPtr
