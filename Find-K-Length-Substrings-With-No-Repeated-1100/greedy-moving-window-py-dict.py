@@ -5,18 +5,16 @@ class Solution:
             return 0
         
         ans = 0
-        indexDict = [-1] * 26  # -1 for undiscovered char
+        indexDict = {}  # -1 for undiscovered char
         leftPtr = rightPtr = 0
         
         while rightPtr < len(S):
             
             print('front           ', S[leftPtr:rightPtr + 1])
             
-            key = ord(S[rightPtr]) - 97  # map to char to key
-            previousIndex = indexDict[key]
-            print(S[rightPtr], previousIndex)
+            if S[rightPtr] in indexDict:  # if the substring start to char-repeating
             
-            if previousIndex != -1:  # if the substring start to char-repeating
+                previousIndex = indexDict[S[rightPtr]]
                 
                 nonrepeatingLen = rightPtr - leftPtr
                 
@@ -45,20 +43,19 @@ class Solution:
                     rightPtr = leftPtr = previousIndex + 1
                     
                 # As long as we see char-repeating, we reset indexDict
-                indexDict = [-1] * 26
+                indexDict.clear()
             
             print('middle          ', S[leftPtr:rightPtr + 1], 
-                "           S[rightPtr]:", S[rightPtr])
+                  "          S[rightPtr]:", S[rightPtr])
             # We might have a new rightPtr at now, so we have to mapping again
-            key = ord(S[rightPtr]) - 97 
-            indexDict[key] = rightPtr
+            indexDict[S[rightPtr]] = rightPtr
             rightPtr += 1
             print('end             ', S[leftPtr:rightPtr + 1])
         
         # If the last char in S didn't cause char-repeating, then the algorithm will not count.
         # So we have to count in the last non-repeating part.
         nonrepeatingLen = rightPtr - leftPtr
-        if indexDict != [-1] * 26 and nonrepeatingLen >= K:
+        if indexDict and nonrepeatingLen >= K:
             ans += nonrepeatingLen - K + 1
 
         return ans
