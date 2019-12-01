@@ -10,7 +10,7 @@ class Solution:
         Do not return anything, modify nums1 in-place instead.
         """
         # array style
-        # pretend that i am playin w/ a real array
+        # pretend that I am playin w/ a real array
         nums1[n:] = nums1[0:m]  # right-shift content of nums1 w/ n elements 
         # nums1[0+n:m+n] = nums1[0:m]
         i =  i1 = i2 = 0
@@ -33,6 +33,33 @@ class Solution:
         # else:
         #     nums1[i:] = nums1[n+i1:]
             
+```
+## Array Style, Better, Don't Need to Copy, Pick the Larger
+```python=
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        # array style
+        # pretend that I am playin w/ a real array
+        i = m + n - 1
+        i1 = m - 1
+        i2 = n - 1
+        while i1 >= 0 and i2 >= 0:
+            if nums1[i1] > nums2[i2]:
+                nums1[i] = nums1[i1]
+                i1 -= 1
+                i -= 1
+            else:
+                nums1[i] = nums2[i2]
+                i2 -= 1
+                i -= 1
+        if i1 < 0:  # nums1 is used up. 
+            # Pour the rest nums2 to the front side of nums1 
+            nums1[:i+1] = nums2[:i2+1]
+        else:
+            nums1[:i+1] = nums1[:i1+1]
 ```
 ## Python's Linked List Style, Not Accepted But Correct
 It seems like that Leetcode is checking the content of that reference, not the content of the variable `nums1`. 
@@ -117,4 +144,26 @@ class Solution:
             nums1 += nums2
         print(nums1)
         tmp[:] = nums1[:]  # copy by value to the desired ref     
+```
+## Python's Linked List Style, Accepted, Very Meaningful
+### `nums1[:] = []` keeps the ref and clean the contents
+```python=
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        # python's linked list style
+        nums1_ = nums1[0:m]
+        nums1[:] = []  # !!! critical !!!
+        while nums1_ and nums2:
+            if nums1_[0] <= nums2[0]:
+                nums1.append(nums1_.pop(0))
+            else:
+                nums1.append(nums2.pop(0))
+        if nums1_:  # nums1_ is yet used up.
+            nums1 += nums1_
+        else:
+            nums1 += nums2
+
 ```
