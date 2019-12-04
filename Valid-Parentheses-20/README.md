@@ -119,6 +119,54 @@ Memory Usage: 12.8 MB, less than 100.00% of Python3 online submissions for Valid
             
         return stack == []
 ```
+### Further Revision, if the first condition fails, the second will not be judged
+:::info
+```python=
+            if ')' == char:
+                if stack == []:
+                    return False
+                elif stack[-1] == 1:
+                    stack.pop()
+                else:
+                    return False
+```
+can be reduced to
+```python=
+            if ')' == char:
+                if stack and stack[-1] == 1:
+                    stack.pop()
+                else:
+                    return False```
+:::
+```python=
+    def isValid(self, s: str) -> bool:
+        stack = []
+        for char in s:
+            if '(' == char:
+                stack.append(1)  
+            if '[' == char:
+                stack.append(2)  
+            if '{' == char:
+                stack.append(3)  
+                
+            if ')' == char:
+                if stack and stack[-1] == 1:
+                    stack.pop()
+                else:
+                    return False
+            if ']' == char:
+                if stack and stack[-1] == 2:
+                    stack.pop()
+                else:
+                    return False
+            if '}' == char:
+                if stack and stack[-1] == 3:
+                    stack.pop()
+                else:
+                    return False
+            
+        return stack == []
+```
 
 ## Solution, `map {}`
 A dummy element `'#'`
