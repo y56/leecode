@@ -1,3 +1,4 @@
+###### tags: `leetcode`
 # 412. Fizz Buzz
 ## my first try
 ```python=
