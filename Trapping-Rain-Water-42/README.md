@@ -61,7 +61,7 @@ Then, we push the current bar to the stack.
 
 As the result, the bars in the stack are non-strictly decreasing , from base to top.   
 
-### algo
+### algorithm
 
 ![](https://i.imgur.com/iaSDzAR.png)
 
@@ -98,6 +98,7 @@ def trap(self, height: List[int]) -> int:
     return ans
 ```
 ## HOLLY TWO POINTERS
+以對方為無限高牆輪流做梯田
 ```python=
 class Solution:
     def trap(self, height: List[int]) -> int:
