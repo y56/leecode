@@ -1,4 +1,4 @@
-# 
+# 155. Min Stack
 ```python=
 # Your MinStack object will be instantiated and called as such:
 # obj = MinStack()
