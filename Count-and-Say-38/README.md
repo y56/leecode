@@ -13,14 +13,12 @@ class Solution:
                 if ele == char:
                     count += 1
                 else:
-                    # storge the before
-                    res += str(count)
-                    res += char
-                    # be ready to count a new char
+                # storge the before
+                    res.extend(str(count), char)
+                # be ready to count a new char
                     char = ele
                     count = 1
-            res += str(count)
-            res += char
+            res.extend(str(count), char)
             
             return res
         
