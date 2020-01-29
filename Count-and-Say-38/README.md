@@ -9,7 +9,7 @@ class Solution:
             char = s[0]
             count = 0
             res = ''
-            for i, ele in enumerate(s):
+            for ele in s:
                 if ele == char:
                     count += 1
                 else:
