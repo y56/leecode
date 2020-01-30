@@ -89,3 +89,38 @@ class Solution:
                 
         return ans
 ```
+## .most_common(1)
+```python=
+class Solution:
+    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        
+        banset = set(banned)
+        
+        for c in "!?',;.":
+            paragraph = paragraph.replace(c, " ")
+        
+        word_list = paragraph.lower().split()
+        
+        count = collections.Counter(word for word in word_list if word not in banset)
+        
+        return count.most_common(1)[0][0]
+```
+
+```python=
+class Solution:
+    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        
+        banset = set(banned)
+        
+        for c in "!?',;.":
+            paragraph = paragraph.replace(c, " ")
+        
+        word_list = paragraph.lower().split()
+                
+        count = collections.Counter()
+        for word in word_list :
+            if word not in banset:
+                count[word] += 1
+        
+        return count.most_common(1)[0][0]
+```
