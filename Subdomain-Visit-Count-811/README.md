@@ -1,21 +1,27 @@
 # 811. Subdomain Visit Count
 
-## me 1
+## collections.Counter()
+- `".".join()`  
+- `frags[i:]`  
+- `counter.items()]` return a list of tuples  
+- `"{} {}".format(ct, dom)` so useful  
+
 ```python=
+import collections
 class Solution:
     def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
-        ans = collections.Counter()
+        counter = collections.Counter()
         for domain in cpdomains:
             count, domain = domain.split()
             count = int(count)
             frags = domain.split('.')
             for i in range(len(frags)):
-                ans[".".join(frags[i:])] += count
+                counter[".".join(frags[i:])] += count
 
-        return ["{} {}".format(ct, dom) for dom, ct in ans.items()]
+        return ["{} {}".format(ct, dom) for dom, ct in counter.items()]
         
 ```
-## me 2
+## me
 ```python=
 class Solution:
     def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
