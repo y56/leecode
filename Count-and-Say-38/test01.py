@@ -8,7 +8,7 @@ Created on Tue Jan 14 00:26:50 2020
 
 def f(n):
     result = '1'
-    for _ in range(n):
+    for _ in range(n-1):
         result = g(result)
     return result
 def g(s):
@@ -18,7 +18,7 @@ def g(s):
         curptr = startptr + 1
         while curptr < len(s) and s[startptr] == s[curptr]:
             curptr += 1
-        result.extend(startptr - curptr, s[startptr])
+        result.extend([str(curptr - startptr), s[startptr]])
         startptr = curptr
-        result = '' + result
-    return result
+    return ''.join(result)
+print(f(4))
