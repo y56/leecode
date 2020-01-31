@@ -1,5 +1,6 @@
 # 91. Decode Ways
-## try 1
+## me, wrong strategy, fail
+### try 1, fail
 ```python=
 class Solution:
     def numDecodings(self, s: str) -> int:
@@ -26,7 +27,7 @@ Expected
 3
 :::
 I double count the `2 | 2 | 6`
-### try 2
+### try 2, fail
 ```python=
 class Solution:
     def numDecodings(self, s: str) -> int:
@@ -52,7 +53,7 @@ Expected
 0
 :::
 `"01"` is going the same as `"1"`, which is wrong
-## try 3
+### try 3, fail
 ```python=
 class Solution:
     def numDecodings(self, s: str) -> int:
@@ -79,7 +80,7 @@ Output
 Expected
 0
 :::
-## try 4
+### try 4, fail
 ```python=
 class Solution:
     def numDecodings(self, s: str) -> int:
@@ -106,7 +107,7 @@ Output
 Expected
 0
 :::
-## try 5
+### try 5, fail
 ```python=
 class Solution:
     def numDecodings(self, s: str) -> int:
@@ -157,7 +158,7 @@ Should be
 `if       ints == 10: return 1`
 Not  
 `if       ints == 20: return 1`
-## try 6
+### try 6, fail
 ```python=
 class Solution:
     def numDecodings(self, s: str) -> int:
@@ -181,7 +182,7 @@ Last executed input
 
 "6065812287883668764831544958683283296479682877898293612168136334983851946827579555449329483852397155"
 :::
-## try
+### try 7, fail
 ```python=
 class Solution:
     def numDecodings(self, s: str) -> int:
@@ -209,3 +210,85 @@ Last executed input
 I shoud have memory  
 I should DP
 :::
+
+## dp
+### try 1, fail
+```python=
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        if s[0] == "0":
+            return 0
+        
+        # the first char is not '0'
+        n = len(s)
+        dp = [0] * n # 0 ~ n-1
+        dp[0] = 1
+        for i in range(1, n):
+            if s[i] != '0':
+                dp[i] = dp[i-1]
+            if 10 <= int(s[i-1:i+1]) <= 26: # i-1 ~ i
+                dp[i] += 1
+        return dp[-1]
+```
+:::danger
+Wrong Answer
+
+Input
+"12120"
+Output
+1
+Expected
+3
+:::
+### try 2, success, use `if` in `for` to deal with the special case of counting `s[0:3]`
+```python=
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        if s[0] == "0":
+            return 0
+        
+        # the first char is not '0'
+        n = len(s)
+        dp = [0] * n # 0 ~ n-1
+        dp[0] = 1
+        for i in range(1, n):
+            print(dp)
+            if s[i] != '0':
+                dp[i] += dp[i-1]
+            if 10 <= int(s[i-1:i+1]) <= 26: # i-1 ~ i
+                # to avoid access of dp[-1]
+                if i == 1 :
+                    dp[i] += 1
+                else:
+                    dp[i] += dp[i-2]
+        print(dp)
+        return dp[-1]
+```
+### try 3, success, shift dp chart to avoid  `dp[0:3]`
+```python=
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        if s[0] == "0":
+            return 0
+        
+        # the first char is not '0'
+        n = len(s)
+        dp = [0] * (n+1) # 0 ~ n
+        # we shift the dp chart from the input s by 1
+        
+        # the possible decode way of s[0:a+1] is stroe at dp[a+1]
+        dp[0] = 1 # only for counting the 2-digit at s[0~1], 
+        dp[1] = 1 # for the first char is not '0', there is one decode way
+        
+        for i in range(2, n+1):
+            
+            # if the 1-digit is 1~9 then the previous count is OK to use
+            if s[i-1] != '0':
+                dp[i] += dp[i-1]
+            
+            # if the 2-digit is 10~26, then the previous count is OK to use
+            if 10 <= int(s[i-2:i]) <= 26:
+                dp[i] += dp[i-2]
+        
+        return dp[n]
+```
