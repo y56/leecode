@@ -21,9 +21,29 @@ class Solution:
         
         right_product = 1
         
-        for i, ele in enumerate(nums[-1:0:-1]):
+        for i, ele in enumerate(nums[-1:0:-1]): # reverse order, w/o the 0-th
             right_product *= ele
             ans[-2-i] = left_product[-2-i] * right_product
             
         return ans
+```
+
+## one pass, `~i`
+```python=
+class Solution:
+    def productExceptSelf(self, nums):
+
+        res = [1] * len(nums)
+        
+        l_prod = 1
+        r_prod = 1
+        
+        for i in range(len(nums)):
+        
+            res[i] *= l_prod
+            l_prod *= nums[i]
+            res[~i] *= r_prod
+            r_prod *= nums[~i]
+        
+        return res
 ```
