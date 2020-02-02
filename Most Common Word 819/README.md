@@ -124,3 +124,22 @@ class Solution:
         
         return count.most_common(1)[0][0]
 ```
+## regular expression magic
+```python=
+def mostCommonWord(self, p, banned):
+    ban = set(banned)
+    words = re.findall(r'\w+', p.lower())
+    return collections.Counter(w for w in words if w not in ban).most_common(1)[0][0]
+```
+```python=
+def mostCommonWord(self, p, banned):
+    ban = set(banned)
+    words = re.sub(r'[^a-zA-Z]', ' ', p).lower().split()
+    return collections.Counter(w for w in words if w not in ban).most_common(1)[0][0]
+```
+```python=
+def mostCommonWord(self, paragraph, banned):
+    tokens = [token for token in re.findall(r"([a-zA-Z]+)",  paragraph.lower()) if token not in banned]
+    mostComm = collections.Counter(tokens).most_common(1)
+    return mostComm[0][0]
+```
