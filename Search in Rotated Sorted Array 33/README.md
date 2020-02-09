@@ -46,7 +46,7 @@ class Solution:
         return -1
 
 ```
-## one pass
+## one pass,  m = (l + r) // 2
 ```python=
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
@@ -69,6 +69,7 @@ class Solution:
                     r = m - 1
         return -1 
 ```
+## one pass, m = (l + r + 1) // 2
 ```python=
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
