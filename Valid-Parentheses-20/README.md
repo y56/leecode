@@ -136,7 +136,8 @@ can be reduced to
                 if stack and stack[-1] == 1:
                     stack.pop()
                 else:
-                    return False```
+                    return False
+```
 :::
 ```python=
     def isValid(self, s: str) -> bool:
@@ -167,7 +168,32 @@ can be reduced to
             
         return stack == []
 ```
-
+### me, after 2 months 
+```python=
+def isValid(self, s: str) -> bool:
+    st = []
+    for ele in s:
+        if ele == '(' or ele == '{' or ele == '[':
+            st.append(ele)
+        if ele == ')': 
+            if st and st[-1] == '(':
+                st.pop()
+            else: 
+                return False
+        if ele == '}':
+            if st and st[-1] == '{':
+                st.pop()
+            else: 
+                return False
+        if ele == ']':
+            if st and st[-1] == '[':
+                st.pop()
+            else: 
+                return False
+    if st == []:
+        return True 
+    return False
+```
 ## Solution, `map {}`
 A dummy element `'#'`
 Easy to have more types of bracket.
@@ -179,7 +205,7 @@ class Solution(object):
 
         # Hash map for keeping track of mappings. This keeps the code very clean.
         # Also makes adding more types of parenthesis easier
-        mapping = {")": "(", "}": "{", "]": "["}
+        mapping = {')': '(', '}': '{', ']': '['}
 
         # For every bracket in the expression.
         for char in s:
@@ -206,26 +232,24 @@ class Solution(object):
 ## Concise
 Though not very efficient.
 ```python=
-class Solution(object):
-    def isValid(self, s):
-        while "()" in s or "{}" in s or '[]' in s:
-            s = s.replace("()", "").replace('{}', "").replace('[]', "")
-        return s == ''
+def isValid(self, s):
+    while '()' in s or '{}' in s or '[]' in s:
+        s = s.replace('()', '').replace('{}', '').replace('[]', '')
+    return s == ''
 ```
 ## h2
-`stack and i == bracket_map[stack[-1]]:`
+GOOD! `stack and i == bracket_map[stack[-1]]:`
 
 ```python=
-class Solution(object):
-    def isValid(self, s):
-        bracket_map = {"(": ")", "[": "]",  "{": "}"}
-        stack = []
-        for i in s:
-            if i in bracket_map:
-                stack.append(i)
-            elif stack and i == bracket_map[stack[-1]]:  # !!!
-                    stack.pop()
-            else:
-                return False
-        return stack == []
+def isValid(self, s):
+    bracket_map = {'(': ')', '[': ']',  '{': '}'}
+    stack = []
+    for i in s:
+        if i in bracket_map:
+            stack.append(i)
+        elif stack and i == bracket_map[stack[-1]]:  # !!!
+                stack.pop()
+        else:
+            return False
+    return stack == []
 ```
