@@ -1,5 +1,8 @@
 # 1353. Maximum Number of Events That Can Be Attended
 ## sort and priority_queue/min_heap
+a_list.sort() works in-place.  And ONLY for lists.
+
+sorted() will return sth. Works for all iterables.
 ```python=
 class Solution:
     def maxEvents(self, events: List[List[int]]) -> int:
@@ -89,7 +92,7 @@ def maxEvents(self, events: List[List[int]]) -> int:
     return ans
 ```
 
-## my O(n * n lg(n))
+## my O(n^2 * lg(n))
 
 1. Sort the list first by starting dates then by ending dates
 2. Attend the first date (oud) of the first event (Greedy)
