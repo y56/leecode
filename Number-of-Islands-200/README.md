@@ -216,7 +216,7 @@ def numIslands(self, grid: List[List[str]]) -> int:
                 #     ans = UNION(here,r*nc+c-1,rank,ans,parent)
     return ans
 ```
-## disjoint set/union-find
+## disjoint set/union-find, path compression
 ### my stupid functional programming
 #### using python's scope mechanism to mimic global
 ```python=
