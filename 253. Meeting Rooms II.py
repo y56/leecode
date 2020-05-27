@@ -32,12 +32,10 @@ class Solution:
                 heapq.heappop(ongoing_room)
                 
         intervals.sort(key=lambda x:x[0])
-        ans=0
         for start_t,end_t in intervals:
             find_one_availible_room(ongoing_room, start_t)
             heapq.heappush(ongoing_room,end_t)
-            ans = max(ans,len(ongoing_room))
-        return ans
+        return len(ongoing_room)
 """
 Approach 2: Chronological Ordering
 """
