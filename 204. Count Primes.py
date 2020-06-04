@@ -35,6 +35,9 @@ https://en.wikipedia.org/wiki/Sieve_of_Atkin
 
 What is the sum of the prime numbers up to a prime number n ? 
 https://math.stackexchange.com/questions/623872/what-is-the-sum-of-the-prime-numbers-up-to-a-prime-number-n
+
+Generation of primes
+https://en.wikipedia.org/wiki/Generation_of_primes#Complexity
 """
 
 class Solution:
