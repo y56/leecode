@@ -121,8 +121,7 @@ class Solution:
             if root.left and root.val==root.left.val:
                 out = max(out, L+1)
             self.ans=max(self.ans,out)
-            if root.right and root.left \
-               and root.val==root.left.val==root.right.val:
+            if root.right and root.left and root.val==root.left.val==root.right.val:
                 self.ans=max(self.ans,L+R+2)
             return out
         dfs(root)
