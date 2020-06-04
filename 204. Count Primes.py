@@ -73,6 +73,9 @@ class Solution:
                 is_prime[i*j]=False
                 j+=1
         return sum(is_prime)
+"""
+O( n lg lg n ) time
+"""
 class Solution:
     def countPrimes(self, n: int) -> int:
         if n<=2: return 0
@@ -81,7 +84,7 @@ class Solution:
         is_prime[1]=False
         for i in range(2,int(n**0.5)+1): # from 2 to floor(n**0.5)
             j=i
-            while is_prime[i] and i*j<n:
+            while is_prime[i] and i*j<n: # while check extra is_prime[i]
                 is_prime[i*j]=False
                 j+=1
         return sum(is_prime)
@@ -91,9 +94,9 @@ class Solution:
         is_prime=[True]*n
         is_prime[0]=False
         is_prime[1]=False
-        for i in range(2,int(n**0.5)+1): # from 2 to floor(n**0.5)
+        for i in range(2,int(n**0.5)+1):
             j=i
-            if is_prime[i]:
+            if is_prime[i]: # not go to while if no need
                 while i*j<n:
                     is_prime[i*j]=False
                     j+=1
@@ -104,9 +107,9 @@ class Solution:
         is_prime=[True]*n
         is_prime[0]=False
         is_prime[1]=False
-        for i in range(2,int(n**0.5)+1): # from 2 to floor(n**0.5)
+        for i in range(2,int(n**0.5)+1): 
             if is_prime[i]:
-                is_prime[i*i::i]=[False]*len(is_prime[i*i::i])
+                is_prime[i*i::i]=[False]*len(is_prime[i*i::i]) # this is much faster the while # time improve from 59%/860ms to 80%/260ms
         return sum(is_prime)
 """
 wheel factorization
