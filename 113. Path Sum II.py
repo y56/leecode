@@ -140,3 +140,25 @@ class Solution: # recursive
             helper(cur_root.right, cur_sum-cur_root.val, cur_path_walked)
         helper(root,sum,())
         return anss
+
+class Solution: # recursive
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        if not root: return []
+        anss=[]
+        path=[]
+        def dfs(node,pre_sum): # pre_sum is the sum from root to parent
+            cur_sum = pre_sum + node.val
+            if not node.left and not node.right: 
+                if cur_sum==sum:
+                    path.append(node.val)
+                    anss.append(path[:])
+                    path.pop()
+                return
+            path.append(node.val)
+            if node.left:  dfs(node.left,cur_sum)
+            if node.right: dfs(node.right,cur_sum)
+            
+            path.pop()
+            
+        dfs(root,0)
+        return anss
