@@ -29,7 +29,7 @@ class Solution:
                     # insert ele at pos
                     new_ans.append(li[:pos] + [ele] + li[pos:])
                     if pos<len(li) and li[pos]==ele: 
-                        # dont insert ele after pos, if at pos is also an ele
+                        # dont insert ele after pos, if at pos is also a same ele
                         break
 # To handle duplication, avoid inserting a number after any of its duplicates.
             ans = new_ans
@@ -66,7 +66,5 @@ class Solution(object):
             for p in self.permuteUnique(remaining):
                 res.append([i] + p)
         return res
-"""
 
-"""
 
