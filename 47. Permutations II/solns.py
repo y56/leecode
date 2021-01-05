@@ -17,6 +17,10 @@ class Solution:
 
 """
 good
+
+"cascade" method
+
+https://imgur.com/undefined
 """
 # https://leetcode.com/problems/permutations-ii/discuss/18602/9-line-python-solution-with-1-line-to-handle-duplication-beat-99-of-others-%3A-)
 class Solution:
@@ -36,6 +40,7 @@ class Solution:
         return ans
 """
 good
+counter method
 """
 class Solution:
     def permuteUnique(self, nums):
@@ -66,5 +71,4 @@ class Solution(object):
             for p in self.permuteUnique(remaining):
                 res.append([i] + p)
         return res
-
 
