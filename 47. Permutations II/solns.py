@@ -1,5 +1,5 @@
 """
-bad, very slow
+bad, very slow, usual permutaion w/ set()
 """
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
