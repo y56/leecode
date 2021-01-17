@@ -35,14 +35,11 @@ class Solution:
             
             if root in globally_checked: # already checked to be no loops
                 continue
-                
-             # record visited nodes in this dfs
-            
+                            
             dfs(root)
             
             if self.done:
                 return False
-                
             
         return True # at the end, no loops detected
     
@@ -71,3 +68,46 @@ class Solution:
         return removed_edges==len(prerequisites)
         
         
+class Solution:
+    WHITE = 1
+    GRAY = 2
+    BLACK = 3
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+         # Create the adjacency list representation of the graph
+        adj_list = defaultdict(list)
+
+        # A pair [a, b] in the input represents edge from b --> a
+        for dest, src in prerequisites:
+            adj_list[src].append(dest)
+
+        is_possible = True
+
+        # By default all vertces are WHITE
+        color = {k: Solution.WHITE for k in range(numCourses)}
+        def dfs(node):
+            nonlocal is_possible
+
+            # Don't recurse further if we found a cycle already
+            if not is_possible:
+                return
+
+            # Start the recursion
+            color[node] = Solution.GRAY
+
+            # Traverse on neighboring vertices
+            for neighbor in adj_list[node]:
+                if color[neighbor] == Solution.WHITE:
+                    dfs(neighbor)
+                elif color[neighbor] == Solution.GRAY:
+                     # An edge to a GRAY vertex represents a cycle
+                    is_possible = False
+
+            # Recursion ends. We mark it as black
+            color[node] = Solution.BLACK
+
+        for vertex in range(numCourses):
+            # If the node is unprocessed, then call dfs on it.
+            if color[vertex] == Solution.WHITE:
+                dfs(vertex)
+
+        return is_possible
