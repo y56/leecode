@@ -46,49 +46,34 @@ class Solution:
         return -1
 
 ```
-## one pass,  m = (l + r) // 2
+## one pass
+Only six cases.
+![](https://i.imgur.com/40H7snj.jpg)
+
+* break at RHS: 
+	* (a) then search in left half
+	* (b) \(c\) then search in right half
+* break at LHS: 
+	* (d) then search in right half
+	* (e) (f) then search in left half
 ```python=
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         l = 0 
         r = len(nums) - 1
         while l <= r:
-            m = (l + r) // 2 # using floor leads to nums[m] >= nums[l]:
+            m = (l + r) // 2 # using ceil leads to r > m >= l:
             if nums[m] == target:
                 return m
-            elif nums[m] >= nums[l]: # m~l is sorted # interrupt at l~r
+            if nums[m] >= nums[l]: # l~m is sorted # interrupt at m~r
                 if nums[l] <= target < nums[m]:
-                    r = m - 1
-                else: 
-                    l = m + 1
-                
+                    r = m - 1 # case a
+                else:
+                    l = m + 1 # case b c
             else: # nums[m] < nums[l] # interrupt ar l~m # m~r is sorted
                 if nums[m] < target  <= nums[r]:
-                    l = m + 1
+                    l = m + 1 # case d
                 else:
-                    r = m - 1
-        return -1 
-```
-## one pass, m = (l + r + 1) // 2
-```python=
-class Solution:
-    def search(self, nums: List[int], target: int) -> int:
-        l = 0 
-        r = len(nums) - 1
-        while l <= r:
-            m = (l + r + 1) // 2 # using ceil leads to nums[m] > nums[l]:
-            if nums[m] == target:
-                return m
-            elif nums[m] > nums[l]: # m~l is sorted # interrupt at l~r
-                if nums[l] <= target < nums[m]:
-                    r = m - 1
-                else: 
-                    l = m + 1
-                
-            else: # nums[m] < nums[l] # interrupt ar l~m # m~r is sorted
-                if nums[m] < target  <= nums[r]:
-                    l = m + 1
-                else:
-                    r = m - 1
+                    r = m - 1 # case e f
         return -1 
 ```
